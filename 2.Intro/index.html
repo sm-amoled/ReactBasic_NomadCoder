@@ -11,47 +11,122 @@
   <script type="text/babel">
     const root = document.getElementById("root");
 
-    function App() {
-      const [minutes, setMinutes] = React.useState();
-      const [hours, setHours] = React.useState();
+    function KilometersToMiles() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setInverted((current) => !current);
+      };
 
       const onChange = (event) => {
         console.log(event);
-        if (event.target.id == "minutes") {
-          setMinutes(event.target.value);
-        } else if (event.target.id == "hours") {
-          setMinutes(event.target.value / 60);
+        if (event.target.id == "kilometer") {
+          setAmount(event.target.value);
+        } else if (event.target.id == "mile") {
+          setAmount(event.target.value * 1.60934);
         }
         //
       };
 
       return (
         <div>
-          <h1 className="hi">Super converter</h1>
-
-          <label htmlFor="minutes">Minutes</label>
-          <input
-            value={minutes}
-            id="minutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-          />
-
-          <h4>You want to convert {minutes}</h4>
-
-          <label htmlFor="hours">Hours</label>
-          <input
-            value={minutes / 60}
-            id="hours"
-            placeholder="Hours"
-            type="number"
-            onChange={onChange}
-          />
+          <div>
+            <label htmlFor="kilometer">Kilometers</label>
+            <input
+              value={Math.round(amount * 100) / 100}
+              id="kilometer"
+              placeholder="Kilometers"
+              type="kilometer"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="mile">Miles</label>
+            <input
+              value={Math.round(amount * 0.62137 * 100) / 100}
+              id="mile"
+              placeholder="Miles"
+              type="number"
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>Flip</button>
         </div>
       );
     }
 
+    function MinutesToHours() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+
+      const onChange = (event) => {
+        console.log(event);
+        if (event.target.id == "minutes") {
+          setAmount(event.target.value);
+        } else if (event.target.id == "hours") {
+          setAmount(event.target.value * 60);
+        }
+        //
+      };
+
+      return (
+        <div>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              value={Math.round(amount)}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={Math.floor(amount / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>Flip</button>
+        </div>
+      );
+    }
+
+    function App() {
+      const [index, setIndex] = React.useState("-1");
+      const onSelect = (event) => setIndex(event.target.value);
+
+      return (
+        <div>
+          <h1 className="hi">Super converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="-1">Please select converter</option>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Kilometers & Miles</option>
+          </select>
+          <hr />
+          {index === "0" ? <MinutesToHours /> : null}
+          {index === "1" ? <KilometersToMiles /> : null}
+        </div>
+      );
+    }
     // const container = React.createElement("div", null, [title, btn])
     ReactDOM.render(<App />, root);
   </script>
