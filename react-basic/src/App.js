@@ -1,37 +1,34 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  const [counter, setCounter] = useState(0);
-  const [keyword, setKeyword] = useState("");
-
-  const onClick = () => setCounter((prev) => prev + 1);
-  const onChange = (event) => setKeyword(event.target.value);
-
-  const iRunOnlyOnce = () => {
-    console.log("Call Only Once");
+  const [isShowing, setIsShowing] = useState(true);
+  const onClick = () => {
+    setIsShowing((current) => !current);
   };
-  useEffect(iRunOnlyOnce, []);
-  // console.log("Search For", keyword);
-
-  useEffect(() => {
-    if (keyword !== "" && keyword.length > 5) {
-      console.log("Search For", keyword);
-    }
-  }, [keyword, counter]);
 
   return (
     <div>
-      <input
-        value={keyword}
-        onChange={onChange}
-        type="text"
-        placeholder="Search Here"
-      />
-
-      <h1>{counter}</h1>
-      <button onClick={onClick}>Count Up</button>
+      <button onClick={onClick}>{isShowing ? "hide" : "show"}</button>
+      <Coffee isShowing={isShowing} />
     </div>
   );
+}
+
+function Coffee(isShowing) {
+  function created() {
+    console.log("created");
+    return destroyed;
+  }
+  function destroyed() {
+    console.log("destroyed");
+  }
+
+  useEffect(() => {
+    console.log("Coffee is here");
+    return () => console.log("Coffee isn't here");
+  }, [isShowing]);
+
+  return <h1>{isShowing ? "show" : "hide"}</h1>;
 }
 
 export default App;
