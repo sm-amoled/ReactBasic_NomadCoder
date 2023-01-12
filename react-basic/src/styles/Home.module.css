@@ -1,0 +1,12 @@
+.container {
+  height: 100%;
+}
+
+.slide__box {
+  padding: 0 0 40px 0;
+}
+
+.title {
+  text-align: center;
+  font-size: 42px;
+}
