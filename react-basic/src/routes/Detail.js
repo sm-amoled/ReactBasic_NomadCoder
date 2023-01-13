@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import Information from "../components/Information";
 
 function Detail() {
   const { id } = useParams();
@@ -23,15 +24,18 @@ function Detail() {
   return (
     <div>
       <h1>details</h1>
-      <Link to={"/"}>go back</Link>
+      <Link to={"/"}>뒤로가기</Link>
 
       {isLoading ? (
         <h2>is loading...</h2>
       ) : (
         <div>
-          <h2>title: {movie.title_long}</h2>
-          <img src={movie.medium_cover_image} />
-          <p>{movie.description_full}</p>
+          <Information
+            backgroundImageURL={movie.background_image}
+            title={movie.title}
+            coverImageURL={movie.medium_cover_image}
+            description={movie.description_full}
+          />
         </div>
       )}
     </div>

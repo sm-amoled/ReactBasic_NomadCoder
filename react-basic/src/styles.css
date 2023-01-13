@@ -1,0 +1,12 @@
+* {
+  box-sizing: border-box;
+  font-family: "Black Han Sans", sans-serif;
+  font-family: "Do Hyeon", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: blanchedalmond;
+  height: 100%;
+}

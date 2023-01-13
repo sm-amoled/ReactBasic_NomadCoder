@@ -20,7 +20,7 @@ function Slide({ movieContents }) {
   };
 
   useEffect(() => {
-    console.log(movieContents);
+    console.log(movieContents.movies);
   }, []);
 
   return (
@@ -29,12 +29,16 @@ function Slide({ movieContents }) {
       {/* slide box */}
       <div className={styles.slide__show}>
         {/* slide cell */}
-        <div className={styles.slide}>
-          {movieContents.map((movie, index) => {
+        <div
+          className={styles.slide}
+          style={{ transform: `translateX(${trans}px)` }}
+        >
+          {console.log(movieContents.movies)}
+          {movieContents.movies.map((movie, index) => {
             return (
               <Movie
-                id={movie.id}
                 key={movie.id}
+                id={movie.id}
                 coverImage={movie.medium_cover_image}
                 title={movie.title}
                 year={movie.year}
@@ -51,10 +55,10 @@ function Slide({ movieContents }) {
       </div>
       <div>
         <button className={styles.left} onClick={onClickL}>
-          Left Button
+          prev
         </button>
         <button className={styles.right} onClick={onClickR}>
-          Right Button
+          next
         </button>
       </div>
     </div>

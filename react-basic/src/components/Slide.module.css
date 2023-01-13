@@ -1,19 +1,20 @@
 .container {
-  /* position: "relative"; */
+  position: relative;
 }
-
 .slide__show {
   width: 1050px;
-  /* position: "relative"; */
-
   overflow: hidden;
+
+  position: relative;
   left: calc(50% - 525px);
 }
 
 .slide {
-  width: 350px;
-  padding: 50px;
+  width: 3500px;
+  padding: 50px 0 0 0;
   display: flex;
+
+  transition: all 0.4s ease;
 }
 
 .left,

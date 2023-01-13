@@ -6,36 +6,29 @@ import Slide from "../components/Slide";
 import Loading from "../components/Loading";
 
 import styles from "../styles/Home.module.css";
-
-const navList = [
-  {
-    title: "High Rating",
-    path: "minimum_rating=7",
-  },
-  {
-    title: "Romance",
-    path: "genre=romance",
-  },
-  {
-    title: "Thriller",
-    path: "genre=thriller",
-  },
-  {
-    title: "Animation",
-    path: "genre=animation",
-  },
-];
+import navList from "../navList";
+import { getDefaultNormalizer } from "@testing-library/react";
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [movies, setMovies] = useState([]);
 
   const getMovies = async () => {
-    const response = await fetch(
-      "https://yts.mx/api/v2/list_movies.json?genre=romance"
-    );
-    const json = await response.json();
-    setMovies(json.data.movies);
+    let dataList = [];
+
+    for (const { title, path } of navList) {
+      const response = await fetch(
+        `https://yts.mx/api/v2/list_movies.json?${path}`
+      );
+      const json = await response.json();
+      setMovies((data) => [json.data, ...movies]);
+      dataList = [json.data, ...dataList];
+      // console.log(dataList);
+    }
+
+    console.log("update data");
+    // setMovies(movies);
+    setMovies(dataList);
     setIsLoading(false);
   };
 
@@ -44,15 +37,28 @@ function Home() {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.slide__box}>
-        <h3 className={styles.title}>
-          {/* <Link to={`/page/${slide.path}/1`}> */}
-          <span>로맨스 영화</span>
-          {/* </Link> */}
-        </h3>
-        {isLoading ? <Loading /> : <Slide movieContents={movies} />}
-      </div>
+    <div>
+      {isLoading ? (
+        <p>loading...</p>
+      ) : (
+        navList.map(({ title, path }, index) => {
+          return (
+            <div key={index} className={styles.container}>
+              <div className={styles.slide__box}>
+                {isLoading ? null : (
+                  <h3 className={styles.title}>
+                    {/* <Link to={`/page/${slide.path}/1`}> */}
+                    <span>{title}</span>
+                    {/* </Link> */}
+                  </h3>
+                )}
+
+                <Slide movieContents={movies[index]} />
+              </div>
+            </div>
+          );
+        })
+      )}
     </div>
   );
 }

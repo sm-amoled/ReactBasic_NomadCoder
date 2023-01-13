@@ -1,0 +1,23 @@
+.bg {
+  top: 0px;
+  left: 0px;
+
+  position: fixed;
+
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.showInfo {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  z-index: 8;
+
+  width: 60%;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
