@@ -8,35 +8,42 @@ export default function NavBar() {
   console.log(router);
 
   return (
-    <div>
-      <nav>
+    <nav>
+      <img src="/vercel.svg" />
+      <div>
         <Link href="/" legacyBehavior>
           <a className={router.pathname === "/" ? "active" : ""}>Home</a>
         </Link>
         <Link href="/about" legacyBehavior>
           <a className={router.pathname === "/about" ? "active" : ""}>About</a>
         </Link>
-        <style jsx>{`
-          nav {
-            background-color: tomato;
-          }
-          a {
-            text-decoration: none;
-          }
-          .active {
-            color: ${true ? "yellow" : "blue"};
-          }
-        `}</style>
-        <style jsx global>
-          {`
-            a {
-              color: orange;
-            }
-          `}
-        </style>
-        <a>JSX 적용됨</a>
-      </nav>
-      <a>JSX 적용 안됨</a>
-    </div>
+      </div>
+
+      <style jsx>{`
+        nav {
+          display: flex;
+          gap: 10px;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          padding: 10px;
+
+          box-shadow: 0px 10px 10px gray;
+        }
+        img {
+          max-width: 100px;
+          width: 100%;
+        }
+        a {
+          text-decoration: none;
+          padding: 10px;
+          font-weight: 600;
+        }
+        .active {
+          color: ${true ? "tomato" : "black"};
+        }
+      `}</style>
+    </nav>
   );
 }

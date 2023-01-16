@@ -1,11 +1,10 @@
-import NavBar from "../components/NavBar";
-import css from "../styles/globals.css";
+import Layout from "@/components/Layout";
+import "../styles/globals.css";
 
 export default function App({ Component, pageProps }) {
   return (
     <div>
-      <NavBar />
-      <Component {...pageProps} />;
+      <Layout childrens={<Component {...pageProps} />} />
     </div>
   );
 }
