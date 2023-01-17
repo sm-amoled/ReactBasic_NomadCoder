@@ -2,17 +2,13 @@ import Seo from "../components/Seo";
 
 import { useEffect, useState } from "react";
 
-export default function Home() {
-  const API_KEY = "12977097132f6b51af5b0911e23ebb3a";
-
+export default function Home({ results }) {
   const [movies, setMovies] = useState();
 
   useEffect(() => {
+    console.log("Home function");
     (async () => {
-      const { results } = await (await fetch(`/api/movies`)).json();
-
       setMovies(results);
-      console.log(results);
     })();
   }, []);
 
@@ -63,4 +59,15 @@ export default function Home() {
       </style>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const { results } = await (console.log("getServerSideProps function"),
+  await fetch(`http://localhost:3000/api/movies`)).json();
+
+  return {
+    props: {
+      results,
+    },
+  };
 }

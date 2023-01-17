@@ -5,7 +5,6 @@ import styles from "./NavBar.module.css";
 
 export default function NavBar() {
   const router = useRouter();
-  console.log(router);
 
   return (
     <nav>
