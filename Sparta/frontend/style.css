@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap");
+* {
+  font-family: "Nanum Myeongjo", serif;
+}
+.mytitle {
+  color: white;
+  background-color: green;
+
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+
+  text-align: center;
+  padding: 30px 0px 0px 0px;
+
+  background-image: url("https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.wrap {
+  width: 300px;
+  margin: 20px auto 0px auto;
+}
