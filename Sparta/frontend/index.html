@@ -72,11 +72,9 @@
       }
 
       .mypost {
-        /* background-color: green; */
         width: 500px;
         margin: 20px auto 20px auto;
         padding: 20px;
-        /* border: 2px solid gray; */
         box-shadow: 0px 0px 3px 0px gray;
       }
       .mybutton {
@@ -90,11 +88,60 @@
         margin-right: 10px;
       }
     </style>
+
+    <script>
+      $(document).ready(function () {
+        fetch("http://spartacodingclub.shop/sparta_api/weather/seoul")
+          .then((res) => res.json())
+          .then((data) => {
+            $("#temp").text(data.temp);
+          });
+
+        fetch("http://spartacodingclub.shop/web/api/movie")
+          .then((res) => res.json())
+          .then((data) => {
+            let rows = data["movies"];
+
+            $("#mycardlist").empty();
+            console.log(rows);
+            rows.forEach((movie) => {
+              let title = movie.title;
+              let description = movie.desc;
+              let star = movie.star;
+              let imageSource = movie.image;
+              let comment = movie.comment;
+
+              let starImage = "⭐".repeat(star);
+
+              let temp_html = `
+              <div class="col">
+                <div class="card h-100">
+                  <img
+                    src=${imageSource}
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">${title}</h5>
+                    <p class="card-text">${description}</p>
+                    <p>${starImage}</p>
+                    <p class="mycomment">${comment}</p>
+                  </div>
+                </div>
+              </div>
+              `;
+
+              $("#mycardlist").append(temp_html);
+            });
+          });
+      });
+    </script>
   </head>
   <body>
     <div class="mytitle">
       <h1>내 생애 최고의 영화들</h1>
-      <button>영화 기록하기</button>
+      <div>현재 서울의 날씨 : <span id="temp">20</span>도</div>
+      <button onClick="hey()">영화 기록하기</button>
     </div>
 
     <div class="mypost">
@@ -106,6 +153,17 @@
           placeholder="영화 URL"
         />
         <label for="floatingPassword">영화 URL</label>
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01">별점</label>
+        <select class="form-select" id="inputGroupSelect01">
+          <option selected></option>
+          <option value="1">⭐</option>
+          <option value="2">⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
       </div>
       <div class="form-floating">
         <input
@@ -123,52 +181,7 @@
     </div>
 
     <div class="mycards">
-      <div class="row row-cols-1 row-cols-md-4 g-4">
-        <div class="col">
-          <div class="card h-100">
-            <img
-              src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">여기에 타이틀</h5>
-              <p class="card-text">여기에 내용</p>
-              <p>⭐⭐⭐</p>
-              <p class="mycomment">나의 의견</p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img
-              src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">여기에 타이틀</h5>
-              <p class="card-text">여기에 내용</p>
-              <p>⭐⭐⭐</p>
-              <p class="mycomment">나의 의견</p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img
-              src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">여기에 타이틀</h5>
-              <p class="card-text">여기에 내용</p>
-              <p>⭐⭐⭐</p>
-              <p class="mycomment">나의 의견</p>
-            </div>
-          </div>
-        </div>
+      <div id="mycardlist" class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col">
           <div class="card h-100">
             <img
